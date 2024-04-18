@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-right: 40px;
+  background-color: goldenrod;
+  padding: 0 50px;
+  .link {
+    text-decoration: none;
+    cursor: pointer;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    h3 {
+      padding-right: 80px;
+    }
+  }
+  img {
+    width: 150px;
+    height: 70px;
+  }
+}

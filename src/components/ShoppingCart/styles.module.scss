@@ -1,0 +1,15 @@
+.container {
+  background-color: #f1d520;
+  border-radius: 50px;
+  .img {
+    max-width: 70px;
+  }
+}
+
+@media screen and (max-width: 655px) {
+  .container {
+    .img {
+      max-width: 50px;
+    }
+  }
+}

@@ -1,0 +1,145 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .cartContainer {
+    border-radius: 20px;
+    min-width: 850px;
+    height: 750px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .tableContainer {
+      max-height: 680px;
+      overflow: auto;
+      width: 100%;
+    }
+
+    h1 {
+      padding-bottom: 10px;
+      text-align: center;
+    }
+    .cartTable {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #ffffff;
+
+      th,
+      td {
+        padding: 10px;
+        text-align: center;
+      }
+
+      tr {
+        border-bottom: 2px solid #e2c1c1;
+      }
+
+      .productContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .productName {
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+
+      .productImage {
+        width: 100px;
+        height: 100px;
+      }
+
+      .qtd {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .qtdButton {
+          text-align: center;
+          width: 35px;
+          border-radius: 10px;
+          font-weight: bold;
+          font-size: 20px;
+          padding: 5px 10px;
+          border: none;
+          background-color: #ffa200;
+          cursor: pointer;
+          transition: background-color 0.2s;
+          &:hover {
+            background-color: #e97c24;
+          }
+        }
+      }
+    }
+
+    .value {
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
+  .footer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 30px;
+    gap: 20px;
+
+    .select {
+      margin-top: 10px;
+      padding: 5px;
+      border-radius: 7px;
+    }
+  }
+}
+
+@media screen and (max-width: 737px) {
+  .overlay {
+    .cartContainer {
+      height: 550px;
+      min-width: fit-content;
+      h1 {
+        font-size: 20px;
+      }
+      .tableContainer {
+        .cartTable {
+          th {
+            padding: 7px;
+          }
+          td {
+            padding: 5px;
+          }
+          .productName {
+            font-size: 15px;
+          }
+          .productImage {
+            width: 50px;
+            height: 50px;
+          }
+          .qtd {
+            justify-content: space-evenly;
+            .qtdButton {
+              width: 20px;
+              padding: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}

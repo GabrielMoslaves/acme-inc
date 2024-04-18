@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  width: 100%;
+  max-width: 350px;
+  min-width: 300px;
+  min-height: 275px;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #fcccac;
+  text-align: center;
+  padding: 20px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  img {
+    border-radius: 8px;
+    height: 200px;
+    width: 300px;
+    resize: both;
+  }
+  h1 {
+    margin: 15px;
+  }
+  p {
+    max-width: 250px;
+    text-align: center;
+  }
+  button {
+    gap: 10px;
+  }
+}

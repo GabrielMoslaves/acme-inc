@@ -1,0 +1,39 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .modal {
+    text-align: start;
+    background-color: rgb(250, 250, 188);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: "Rajdhani", sans-serif;
+    text-transform: uppercase;
+    th,
+    td {
+      word-wrap: break-word;
+      padding: 10px;
+      text-align: left;
+      border: 1px solid #ccc;
+    }
+  }
+}
+
+@media screen and (max-width: 530px) {
+  .modal {
+    font-size: 12px;
+
+    th,
+    td {
+      padding: 5px;
+    }
+  }
+}
