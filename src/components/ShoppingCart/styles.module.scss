@@ -1,6 +1,18 @@
 .container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: #f1d520;
   border-radius: 50px;
+  border: none;
+  height: 70px;
+  width: 70px;
+  cursor: pointer;
+
+  &:active {
+    box-shadow: 0 0 4px 3px #978c6a;
+  }
+
   .img {
     max-width: 70px;
   }

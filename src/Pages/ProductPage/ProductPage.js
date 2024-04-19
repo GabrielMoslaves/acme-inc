@@ -10,6 +10,7 @@ import CartModal from "../Home/Sections/CartModal";
 import ProductionNoteModal from "../Home/Sections/ProductionNote";
 import { useNavigate } from "react-router-dom";
 import LeftArrow from "../../components/Icons/LeftArrow";
+
 const ProductPage = () => {
   const { selectedProduct, handleAddProduct, handleAddFavourites } =
     useProducts();

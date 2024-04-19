@@ -1,12 +1,13 @@
 import React from "react";
 import styles from "./styles.module.scss";
-import Input from "../../components/Input";
 import Button from "../../components/Button/Button";
 import LeftArrow from "../../components/Icons/LeftArrow";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import toast from "react-hot-toast";
+import InputMask from "react-input-mask";
+import { TextField } from "@mui/material";
 
 const CreateAccount = () => {
   const navigate = useNavigate();
@@ -65,7 +66,8 @@ const CreateAccount = () => {
           onSubmit={createAccountForm.handleSubmit}
         >
           <div className={styles.inputWrapper}>
-            <Input
+            <TextField
+              fullWidth
               onChange={(e) =>
                 createAccountForm.setFieldValue("name", e.target.value)
               }
@@ -78,20 +80,29 @@ const CreateAccount = () => {
             )}
           </div>
           <div className={styles.inputWrapper}>
-            <Input
+            <InputMask
+              mask="(99) 99999-9999"
               onChange={(e) =>
                 createAccountForm.setFieldValue("phone", e.target.value)
               }
-              type="text"
-              label="Telefone"
-              id="phone"
-            />
+            >
+              {(inputProps) => (
+                <TextField
+                  fullWidth
+                  {...inputProps}
+                  type="text"
+                  label="Telefone"
+                  id="phone"
+                />
+              )}
+            </InputMask>
             {createAccountForm.errors.phone && (
               <p style={{ color: "red" }}>{createAccountForm.errors.phone}</p>
             )}
           </div>
           <div className={styles.inputWrapper}>
-            <Input
+            <TextField
+              fullWidth
               onChange={(e) =>
                 createAccountForm.setFieldValue("email", e.target.value)
               }
@@ -105,7 +116,8 @@ const CreateAccount = () => {
             )}
           </div>
           <div className={styles.inputWrapper}>
-            <Input
+            <TextField
+              fullWidth
               onChange={(e) =>
                 createAccountForm.setFieldValue("password", e.target.value)
               }

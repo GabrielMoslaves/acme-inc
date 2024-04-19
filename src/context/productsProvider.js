@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { createContext } from "react";
 import toast from "react-hot-toast";
-import { nouns, adjectives } from "../mocks/mockProducts";
 
 export const ProductsContext = createContext();
 
@@ -13,6 +12,24 @@ export const ProductsProvider = ({ children }) => {
   const [change, setChange] = useState(0);
   const [favouriteProducts, setFavouriteProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState();
+  const [nouns, setNouns] = useState([]);
+  const [adjectives, setAdjectives] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    async function fetchWords() {
+      try {
+        const { data } = await axios.get("https://acme-inc.mock/random-words");
+        setNouns(data.nouns);
+        setAdjectives(data.adjectives);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
+    fetchWords();
+  }, []);
+
   const session = JSON.parse(localStorage.getItem("session"));
   const selectedIds = selectedProducts?.map((item) => item.id);
 
@@ -25,17 +42,26 @@ export const ProductsProvider = ({ children }) => {
     0
   );
 
+  const nounsCopy = useMemo(() => [...nouns], [nouns]);
+  const adjectivesCopy = useMemo(() => [...adjectives], [adjectives]);
+
   const getRandomUniqueItem = useCallback((array) => {
     const index = Math.floor(Math.random() * array.length);
     const item = array.splice(index, 1)[0];
     return item;
   }, []);
 
+  const imagesResolution = (url) => {
+    let split = url.split("/");
+
+    split[split.length - 1] = 292;
+    split[split.length - 2] = 438;
+
+    return split.join("/");
+  };
+
   const createRandomObject = useCallback(
     (id) => {
-      const nounsCopy = [...nouns];
-      const adjectivesCopy = [...adjectives];
-
       const randomNoun = getRandomUniqueItem(nounsCopy);
       const randomAdjective = getRandomUniqueItem(adjectivesCopy);
       const productName = `${randomNoun} ${randomAdjective}`;
@@ -53,7 +79,7 @@ export const ProductsProvider = ({ children }) => {
         qtd: 1,
       };
     },
-    [getRandomUniqueItem]
+    [adjectivesCopy, getRandomUniqueItem, nounsCopy]
   );
 
   const objects = useMemo(() => {
@@ -66,15 +92,18 @@ export const ProductsProvider = ({ children }) => {
   }, [createRandomObject]);
 
   const getImages = useCallback(async () => {
+    setLoading(true);
     try {
       const { data } = await axios.get("https://picsum.photos/v2/list");
       const products = objects.map((item, index) => ({
         ...item,
-        image: data[index].download_url,
+        image: imagesResolution(data[index].download_url),
       }));
       setProducts(products);
     } catch (e) {
       console.log(e);
+    } finally {
+      setLoading(false);
     }
   }, [objects]);
 
@@ -154,6 +183,7 @@ export const ProductsProvider = ({ children }) => {
   return (
     <ProductsContext.Provider
       value={{
+        loading,
         handleAddProduct,
         handleAddFavourites,
         handleRemoveFavourites,

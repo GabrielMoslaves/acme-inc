@@ -4,8 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { v4 as uuidv4 } from "uuid";
-import Input from "../../components/Input";
 import Box from "../../components/Box";
+import { InputLabel, TextField } from "@mui/material";
 
 const schema = yup.object().shape({
   email: yup.string().email().required("campo obrigatório"),
@@ -57,9 +57,9 @@ const Login = () => {
       <form onSubmit={loginForm.handleSubmit} className={styles.cardLogin}>
         <h1>Entrar</h1>
         <div>
-          <Input
-            label="Login"
-            id="login"
+          <InputLabel>Login</InputLabel>
+          <TextField
+            fullWidth
             type="text"
             placeholder="Digite seu email"
             onChange={(e) => loginForm.setFieldValue("email", e.target.value)}
@@ -68,8 +68,10 @@ const Login = () => {
           <p style={{ color: "red", height: 24 }}>{loginForm.errors.email}</p>
         </div>
         <div>
-          <Input
-            label="Senha"
+          <InputLabel>Senha</InputLabel>
+
+          <TextField
+            fullWidth
             id="senha"
             type="password"
             placeholder="Digite sua senha"

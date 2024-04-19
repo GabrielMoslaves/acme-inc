@@ -26,7 +26,7 @@ const Card = (props) => {
       <img src={image} alt={name} />
       <h3>{name}</h3>
       <p title={description}>{description.slice(0, 100) + "..."}</p>
-      <h1>R${price}</h1>
+      <h1>R${price.toFixed(2).replace(".", ",")}</h1>
       <Box display="flex" flexDirection="column" gap="8px">
         <Button
           text="Adicionar ao carrinho"
@@ -35,7 +35,7 @@ const Card = (props) => {
           }}
         />
         <Button
-          backgroundColor="#eda17e"
+          backgroundColor={isFavourite ? "#ff6007d6" : "#eda17e"}
           text={
             isFavourite ? "Remover dos favoritos" : "Adicionar aos favoritos"
           }

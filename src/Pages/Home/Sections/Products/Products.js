@@ -1,28 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Card from "../../../../components/Card/Card";
 import styles from "./styles.module.scss";
 import { useProducts } from "../../../../hooks/useProducts";
 import Input from "../../../../components/Input";
 import EmptyState from "../../../../components/EmptyState";
 import emptyState from "../../../../components/Icons/emptyState.svg";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Products = () => {
-  const { products, favouriteProducts } = useProducts();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { products, favouriteProducts, loading } = useProducts();
   const [searchText, setSearchText] = useState("");
-  const [showFavourites, setShowFavourites] = useState(false);
-  const [renderedArr, setRenderedArray] = useState(products);
+
+  const showFavourites = location.search.includes("favoritos=true");
+
+  const renderedArr = showFavourites ? favouriteProducts : products;
 
   const filteredProducts = renderedArr.filter(
     (item) =>
       searchText === "" ||
       item.name.toLowerCase().includes(searchText.toLowerCase())
   );
-
-  useEffect(() => {
-    showFavourites
-      ? setRenderedArray(favouriteProducts)
-      : setRenderedArray(products);
-  }, [showFavourites, products, favouriteProducts]);
 
   return (
     <div className={styles.wrapper}>
@@ -36,17 +35,23 @@ const Products = () => {
           }}
         />
         <h3
-          style={{ cursor: "pointer" }}
+          style={{
+            cursor: "pointer",
+            color: !showFavourites ? "red" : undefined,
+          }}
           onClick={() => {
             setSearchText("");
-            setShowFavourites(false);
+            navigate("/");
           }}
         >
           Todos
         </h3>
         <h3
-          style={{ cursor: "pointer" }}
-          onClick={() => setShowFavourites(true)}
+          style={{
+            cursor: "pointer",
+            color: showFavourites ? "red" : undefined,
+          }}
+          onClick={() => navigate("/?favoritos=true")}
         >
           Meus Favoritos
         </h3>
@@ -55,7 +60,8 @@ const Products = () => {
       <div className={styles.container}>
         <h1>{showFavourites ? "Meus favoritos" : "Todos"}</h1>
         <div className={styles.content}>
-          {filteredProducts.length === 0 && (
+          {loading && <h2>Carregando...</h2>}
+          {filteredProducts.length === 0 && !loading && (
             <EmptyState
               width="200"
               title="Nada aqui!"
