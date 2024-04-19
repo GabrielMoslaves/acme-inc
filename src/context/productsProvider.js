@@ -31,6 +31,7 @@ export const ProductsProvider = ({ children }) => {
   }, []);
 
   const session = JSON.parse(localStorage.getItem("session"));
+
   const selectedIds = selectedProducts?.map((item) => item.id);
 
   const parsedSelectedProducts = selectedProducts.map((item) => {
@@ -140,6 +141,7 @@ export const ProductsProvider = ({ children }) => {
     );
   };
 
+  console.log({ session });
   const handleAddFavourites = (product, e) => {
     e.stopPropagation();
     if (favouriteProducts.some((item) => item.id === product.id)) {

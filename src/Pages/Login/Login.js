@@ -6,6 +6,7 @@ import * as yup from "yup";
 import { v4 as uuidv4 } from "uuid";
 import Box from "../../components/Box";
 import { InputLabel, TextField } from "@mui/material";
+import { useSession } from "../../hooks/useSession";
 
 const schema = yup.object().shape({
   email: yup.string().email().required("campo obrigatório"),
@@ -17,6 +18,7 @@ const schema = yup.object().shape({
 });
 
 const Login = () => {
+  const { handleLogin } = useSession();
   const navigate = useNavigate();
   const registratedAccounts = JSON.parse(localStorage.getItem("accounts"));
 
@@ -33,10 +35,7 @@ const Login = () => {
     if (selectedAccount && selectedAccount.password !== values.password) {
       form.setFieldError("password", "Senha incorreta");
     } else {
-      localStorage.setItem(
-        "session",
-        JSON.stringify({ ...selectedAccount, token: uuidv4() })
-      );
+      handleLogin({ ...selectedAccount, token: uuidv4() });
       navigate("/");
     }
   };

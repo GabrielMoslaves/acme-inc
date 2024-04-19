@@ -1,5 +1,6 @@
 import Box from "../../../../components/Box";
 import { useProducts } from "../../../../hooks/useProducts";
+import { useSession } from "../../../../hooks/useSession";
 import styles from "./styles.module.scss";
 
 const ProductionNoteModal = ({ openNoteModal, setOpenNoteModal }) => {
@@ -12,7 +13,8 @@ const ProductionNoteModal = ({ openNoteModal, setOpenNoteModal }) => {
     setPaymentForm,
     parsedSelectedProducts,
   } = useProducts();
-  const session = JSON.parse(localStorage.getItem("session"));
+
+  const { session } = useSession();
 
   const handleOutsideClick = (event) => {
     if (event.target === event.currentTarget) {

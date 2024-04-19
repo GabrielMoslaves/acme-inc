@@ -11,9 +11,10 @@ import Box from "../../../../components/Box";
 import { toast } from "react-hot-toast";
 import { useProducts } from "../../../../hooks/useProducts";
 import { useNavigate } from "react-router-dom";
+import { useSession } from "../../../../hooks/useSession";
 
 const CartModal = () => {
-  const session = localStorage.getItem("session");
+  const { session } = useSession();
   const navigate = useNavigate();
   const [needChange, setNeedChange] = useState(false);
   const {
