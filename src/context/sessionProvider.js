@@ -3,10 +3,11 @@ import { createContext, useState } from "react";
 export const SessionContext = createContext();
 
 export const SessionProvider = ({ children }) => {
-  const [session, setSession] = useState(null);
+  const [session, setSession] = useState(
+    JSON.parse(localStorage.getItem("session"))
+  );
 
   const handleLogin = (session) => {
-    debugger;
     setSession(session);
     localStorage.setItem("session", JSON.stringify(session));
   };

@@ -9,19 +9,19 @@ import toast from "react-hot-toast";
 import InputMask from "react-input-mask";
 import { TextField } from "@mui/material";
 
+const schema = yup.object().shape({
+  name: yup.string().required("campo obrigatório"),
+  phone: yup.string().required("campo obrigatório"),
+  email: yup.string().email("Email inválido").required("campo obrigatório"),
+  password: yup
+    .string()
+    .min(6, "no mínimo 6 caracteres")
+    .max(10, "no máximo 10 caracteres")
+    .required("campo obrigatório"),
+});
+
 const CreateAccount = () => {
   const navigate = useNavigate();
-
-  const schema = yup.object().shape({
-    name: yup.string().required("campo obrigatório"),
-    phone: yup.string().required("campo obrigatório"),
-    email: yup.string().email("Email inválido").required("campo obrigatório"),
-    password: yup
-      .string()
-      .min(6, "no mínimo 6 caracteres")
-      .max(10, "no máximo 10 caracteres")
-      .required("campo obrigatório"),
-  });
 
   const handleSubmit = () => {
     const existingAccounts = localStorage.getItem("accounts");
@@ -67,27 +67,31 @@ const CreateAccount = () => {
         >
           <div className={styles.inputWrapper}>
             <TextField
+              helperText={createAccountForm.errors.name}
+              error={Boolean(
+                createAccountForm.errors.name && createAccountForm.touched.name
+              )}
+              onChange={createAccountForm.handleChange}
               fullWidth
-              onChange={(e) =>
-                createAccountForm.setFieldValue("name", e.target.value)
-              }
+              name="name"
               type="text"
               label="Nome"
               id="name"
             />
-            {createAccountForm.errors.name && (
-              <p style={{ color: "red" }}> {createAccountForm.errors.name}</p>
-            )}
           </div>
           <div className={styles.inputWrapper}>
             <InputMask
               mask="(99) 99999-9999"
-              onChange={(e) =>
-                createAccountForm.setFieldValue("phone", e.target.value)
-              }
+              onChange={createAccountForm.handleChange}
             >
               {(inputProps) => (
                 <TextField
+                  helperText={createAccountForm.errors.phone}
+                  error={Boolean(
+                    createAccountForm.errors.phone &&
+                      createAccountForm.touched.phone
+                  )}
+                  name="phone"
                   fullWidth
                   {...inputProps}
                   type="text"
@@ -96,41 +100,36 @@ const CreateAccount = () => {
                 />
               )}
             </InputMask>
-            {createAccountForm.errors.phone && (
-              <p style={{ color: "red" }}>{createAccountForm.errors.phone}</p>
-            )}
           </div>
           <div className={styles.inputWrapper}>
             <TextField
+              helperText={createAccountForm.errors.email}
+              error={Boolean(
+                createAccountForm.errors.email &&
+                  createAccountForm.touched.email
+              )}
+              onChange={createAccountForm.handleChange}
+              name="email"
               fullWidth
-              onChange={(e) =>
-                createAccountForm.setFieldValue("email", e.target.value)
-              }
               type="text"
               label="Email"
               htmlFor="email"
-              id="email"
             />
-            {createAccountForm.errors.email && (
-              <p style={{ color: "red" }}> {createAccountForm.errors.email}</p>
-            )}
           </div>
           <div className={styles.inputWrapper}>
             <TextField
               fullWidth
-              onChange={(e) =>
-                createAccountForm.setFieldValue("password", e.target.value)
-              }
+              helperText={createAccountForm.errors.password}
+              error={Boolean(
+                createAccountForm.errors.password &&
+                  createAccountForm.touched.password
+              )}
+              onChange={createAccountForm.handleChange}
+              name="password"
               type="password"
               label="Senha"
               htmlFor="password"
-              id="password"
             />
-            {createAccountForm.errors.password && (
-              <p style={{ color: "red" }}>
-                {createAccountForm.errors.password}
-              </p>
-            )}
           </div>
           <Button type="submit" text="Criar conta" />
         </form>

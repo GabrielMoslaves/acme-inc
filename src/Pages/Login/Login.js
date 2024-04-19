@@ -58,30 +58,30 @@ const Login = () => {
         <div>
           <InputLabel>Login</InputLabel>
           <TextField
+            helperText={loginForm.errors.email}
+            name="email"
+            error={Boolean(loginForm.errors.email && loginForm.touched.email)}
+            onChange={loginForm.handleChange}
             fullWidth
             type="text"
             placeholder="Digite seu email"
-            onChange={(e) => loginForm.setFieldValue("email", e.target.value)}
           />
-
-          <p style={{ color: "red", height: 24 }}>{loginForm.errors.email}</p>
         </div>
         <div>
           <InputLabel>Senha</InputLabel>
 
           <TextField
+            helperText={loginForm.errors.password}
+            name="password"
+            error={Boolean(
+              loginForm.errors.password && loginForm.touched.password
+            )}
+            onChange={loginForm.handleChange}
             fullWidth
             id="senha"
             type="password"
             placeholder="Digite sua senha"
-            onChange={(e) =>
-              loginForm.setFieldValue("password", e.target.value)
-            }
           />
-
-          <p style={{ color: "red", height: 24 }}>
-            {loginForm.errors.password}
-          </p>
         </div>
         <Button type="submit" text="Login" />
         <Box display="flex" justifyContent="center">
