@@ -12,11 +12,20 @@ import { useNavigate } from "react-router-dom";
 import LeftArrow from "../../components/Icons/LeftArrow";
 
 const ProductPage = () => {
-  const { selectedProduct, handleAddProduct, handleAddFavourites } =
-    useProducts();
+  const {
+    selectedProduct,
+    handleAddProduct,
+    handleAddFavourites,
+    handleRemoveFavourites,
+    favouriteProducts,
+  } = useProducts();
   const { openCartModal, openNoteModal, setOpenNoteModal } = useOpener();
 
   const navigate = useNavigate();
+
+  const isFavourite = favouriteProducts.some(
+    (f) => f.id === selectedProduct.id
+  );
   return (
     <div className={styles.container}>
       {!openCartModal && !openNoteModal && (
@@ -39,10 +48,20 @@ const ProductPage = () => {
               onClick={(e) => handleAddProduct(selectedProduct, e)}
               text="Adicionar ao carrinho"
             />
+
             <Button
+              backgroundColor={isFavourite ? "#ff6007d6" : "#ffa200"}
               maxWidth={250}
-              onClick={(e) => handleAddFavourites(selectedProduct, e)}
-              text="Adicionar aos favoritos"
+              onClick={(e) =>
+                isFavourite
+                  ? handleRemoveFavourites(selectedProduct, e)
+                  : handleAddFavourites(selectedProduct, e)
+              }
+              text={
+                isFavourite
+                  ? "Remover dos favoritos"
+                  : "Adicionar aos favoritos"
+              }
             />
           </Box>
         </div>

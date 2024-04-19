@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import Card from "../../../../components/Card/Card";
 import styles from "./styles.module.scss";
 import { useProducts } from "../../../../hooks/useProducts";
-import Input from "../../../../components/Input";
 import EmptyState from "../../../../components/EmptyState";
 import emptyState from "../../../../components/Icons/emptyState.svg";
 import { useLocation, useNavigate } from "react-router-dom";
+import { TextField } from "@mui/material";
 
 const Products = () => {
   const location = useLocation();
@@ -26,10 +26,11 @@ const Products = () => {
   return (
     <div className={styles.wrapper}>
       <aside className={styles.left}>
-        <Input
+        <TextField
+          fullWidth
           value={searchText}
           type="text"
-          placeholder="Busque pelo nome"
+          label="Busque pelo nome"
           onChange={(e) => {
             setSearchText(e.target.value);
           }}
