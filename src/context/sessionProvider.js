@@ -17,7 +17,6 @@ export const SessionProvider = ({ children }) => {
     localStorage.removeItem("session");
   };
 
-  console.log("state session", session);
   return (
     <SessionContext.Provider
       value={{ session, setSession, handleLogin, handleLogout }}

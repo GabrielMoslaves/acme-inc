@@ -71,10 +71,11 @@ const Products = () => {
               backgroundColor="#ffffff"
             />
           )}
-          {filteredProducts?.map((item) => {
+          {filteredProducts?.map((item, index) => {
             const isFavourite = favouriteProducts.some((f) => f.id === item.id);
             return (
               <Card
+                index={index}
                 key={item.id}
                 name={item.name}
                 description={item.description}

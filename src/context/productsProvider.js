@@ -53,7 +53,6 @@ export const ProductsProvider = ({ children }) => {
         const { data: images } = await axios.get(
           "https://picsum.photos/v2/list"
         );
-
         const { adjectives, nouns } = randomWords;
 
         const nounsCopy = [...nouns];
@@ -81,7 +80,6 @@ export const ProductsProvider = ({ children }) => {
           };
         });
 
-        console.log({ products });
         setProducts(products);
       } catch (e) {
         console.log(e);

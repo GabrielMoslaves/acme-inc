@@ -6,7 +6,8 @@ import Box from "../../components/Box";
 import { useNavigate } from "react-router-dom";
 
 const Card = (props) => {
-  const { name, description, price, image, product, isFavourite } = props;
+  const { name, description, price, image, product, isFavourite, index } =
+    props;
   const {
     setSelectedProduct,
     handleAddProduct,
@@ -22,7 +23,11 @@ const Card = (props) => {
   };
 
   return (
-    <div onClick={handleClick} className={styles.container}>
+    <div
+      onClick={handleClick}
+      className={styles.container}
+      data-testid={`card.${index}`}
+    >
       <img src={image} alt={name} />
       <h3>{name}</h3>
       <p title={description}>{description.slice(0, 100) + "..."}</p>
